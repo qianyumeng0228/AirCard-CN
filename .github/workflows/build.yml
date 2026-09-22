@@ -70,14 +70,14 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "${{ github.ref_name }}" \
-            "dist/aircard.exe#AirCard-Windows-中文版.exe" \
-            "dist/AirCard.dmg#AirCard-macOS-中文版.dmg" \
+            "dist/aircard.exe#AirCard-Windows-zh.exe" \
+            "dist/AirCard.dmg#AirCard-macOS-zh.dmg" \
             --title "AirCard 中文版 ${{ github.ref_name }}（macOS + Windows）" \
             --notes "AirCard 中文版发布，同时包含 macOS 与 Windows 两个平台的安装包。
 
 ## 下载
-- macOS：AirCard-macOS-中文版.dmg（Apple Silicon + Intel 通用架构）
-- Windows：AirCard-Windows-中文版.exe（64 位，免安装）
+- macOS：AirCard-macOS-zh.dmg（Apple Silicon + Intel 通用架构）
+- Windows：AirCard-Windows-zh.exe（64 位，免安装）
 
 ## 主要改动
 - 界面全面中文化：标签页、按钮、提示、日志、错误消息全部译为简体中文

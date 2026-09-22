@@ -12,8 +12,8 @@ Apple 钱包卡面修改工具的中文汉化版，**同时提供 macOS 与 Wind
 
 | 平台 | 文件 | 说明 |
 |---|---|---|
-| macOS | `AirCard-macOS-中文版.dmg` | 通用架构（Apple Silicon + Intel），拖入应用程序即可 |
-| Windows | `AirCard-Windows-中文版.exe` | 64 位，免安装，直接运行 |
+| macOS | `AirCard-macOS-zh.dmg` | 通用架构（Apple Silicon + Intel），拖入应用程序即可 |
+| Windows | `AirCard-Windows-zh.exe` | 64 位，免安装，直接运行 |
 
 > 每个 Release 同时包含 macOS 与 Windows 两个安装包。
 
