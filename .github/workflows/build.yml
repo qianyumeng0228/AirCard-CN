@@ -73,21 +73,4 @@ jobs:
             "dist/aircard.exe#AirCard-Windows-zh.exe" \
             "dist/AirCard.dmg#AirCard-macOS-zh.dmg" \
             --title "AirCard 中文版 ${{ github.ref_name }}（macOS + Windows）" \
-            --notes "AirCard 中文版发布，同时包含 macOS 与 Windows 两个平台的安装包。
-
-## 下载
-- macOS：AirCard-macOS-zh.dmg（Apple Silicon + Intel 通用架构）
-- Windows：AirCard-Windows-zh.exe（64 位，免安装）
-
-## 主要改动
-- 界面全面中文化：标签页、按钮、提示、日志、错误消息全部译为简体中文
-- macOS 版保持底层逻辑不变（枚举 code、tag 值保留英文）
-- Windows 版加载系统中文字体（微软雅黑等），保留英文枚举值兼容底层逻辑
-
-## 使用说明
-1. Windows：安装 64 位 iTunes 或 Apple 移动设备支持
-2. iPhone 通过 USB 连接并解锁，点按「信任此电脑」
-3. 运行软件，在钱包页扫描卡片哈希、选择卡面图片后点击「应用卡面」
-4. 写入完成后在 iPhone 上强制关闭并重新打开钱包
-
-仅供学习研究，请自行评估风险。"
+            --notes $'AirCard 中文版发布，同时包含 macOS 与 Windows 两个平台的安装包。\n\n## 下载\n- macOS：AirCard-macOS-zh.dmg（Apple Silicon + Intel 通用架构）\n- Windows：AirCard-Windows-zh.exe（64 位，免安装）\n\n## 主要改动\n- 界面全面中文化：标签页、按钮、提示、日志、错误消息全部译为简体中文\n- macOS 版保持底层逻辑不变（枚举 code、tag 值保留英文）\n- Windows 版加载系统中文字体（微软雅黑等），保留英文枚举值兼容底层逻辑\n\n## 使用说明\n1. Windows：安装 64 位 iTunes 或 Apple 移动设备支持\n2. iPhone 通过 USB 连接并解锁，点按「信任此电脑」\n3. 运行软件，在钱包页扫描卡片哈希、选择卡面图片后点击「应用卡面」\n4. 写入完成后在 iPhone 上强制关闭并重新打开钱包\n\n仅供学习研究，请自行评估风险。'
