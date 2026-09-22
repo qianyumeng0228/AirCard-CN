@@ -1,0 +1,11 @@
+# 通用
+.DS_Store
+*.log
+__pycache__/
+*.pyc
+
+# macOS 构建产物（子目录 macos/.gitignore 另有细节）
+macos/build/
+
+# Windows 构建产物（子目录 windows/.gitignore 另有细节）
+windows/target/

@@ -1,0 +1,93 @@
+name: Build Releases (macOS + Windows)
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    name: Build Windows exe
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - name: Build release
+        working-directory: windows
+        run: cargo build --release
+
+      - name: Upload exe artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aircard-windows-exe
+          path: windows/target/release/aircard.exe
+
+  build-macos:
+    name: Build macOS DMG
+    runs-on: macos-14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build AirCard DMG
+        working-directory: macos
+        run: |
+          chmod +x build.sh
+          ./build.sh
+
+      - name: Upload DMG artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aircard-macos-dmg
+          path: macos/build/AirCard.dmg
+
+  publish:
+    name: Publish merged release
+    needs: [build-windows, build-macos]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - name: Download Windows artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: aircard-windows-exe
+          path: dist
+
+      - name: Download macOS artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: aircard-macos-dmg
+          path: dist
+
+      - name: Create merged GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            "dist/aircard.exe#AirCard-Windows-中文版.exe" \
+            "dist/AirCard.dmg#AirCard-macOS-中文版.dmg" \
+            --title "AirCard 中文版 ${{ github.ref_name }}（macOS + Windows）" \
+            --notes "AirCard 中文版发布，同时包含 macOS 与 Windows 两个平台的安装包。
+
+## 下载
+- macOS：AirCard-macOS-中文版.dmg（Apple Silicon + Intel 通用架构）
+- Windows：AirCard-Windows-中文版.exe（64 位，免安装）
+
+## 主要改动
+- 界面全面中文化：标签页、按钮、提示、日志、错误消息全部译为简体中文
+- macOS 版保持底层逻辑不变（枚举 code、tag 值保留英文）
+- Windows 版加载系统中文字体（微软雅黑等），保留英文枚举值兼容底层逻辑
+
+## 使用说明
+1. Windows：安装 64 位 iTunes 或 Apple 移动设备支持
+2. iPhone 通过 USB 连接并解锁，点按「信任此电脑」
+3. 运行软件，在钱包页扫描卡片哈希、选择卡面图片后点击「应用卡面」
+4. 写入完成后在 iPhone 上强制关闭并重新打开钱包
+
+仅供学习研究，请自行评估风险。"
